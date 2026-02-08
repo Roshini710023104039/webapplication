@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Enrolled Courses</title>
+
+<style>
+/* GLOBAL */
+body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:#f4f6f8;
+    margin:0;
+    color:#1f2937;
+}
+
+/* HEADER */
+header{
+    background:#1f2a44;
+    color:white;
+    padding:18px 40px;
+    display:flex;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+header h2{ margin:0; }
+
+/* CONTAINER – FULL WIDTH */
+.container{
+    padding:30px 40px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+    margin-bottom:25px;
+    padding:10px 20px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+}
+.back-btn:hover{ background:#1d4ed8; }
+
+/* COURSE CARD */
+.course-card{
+    background:white;
+    padding:22px 26px;
+    margin-bottom:20px;
+    border-radius:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 6px 16px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+.course-card:hover{
+    transform:translateY(-3px);
+}
+
+/* LEFT INFO */
+.course-info{
+    width:70%;
+}
+.course-info h3{
+    margin:0;
+    font-size:19px;
+}
+
+/* STATUS BADGE */
+.status-badge{
+    display:inline-block;
+    margin-top:6px;
+    padding:4px 12px;
+    border-radius:14px;
+    font-size:12px;
+    font-weight:600;
+    color:white;
+}
+.status-notstarted{ background:#6b7280; }
+.status-inprogress{ background:#2563eb; }
+.status-completed{ background:#16a34a; }
+
+/* LAST ACCESSED */
+.last-accessed{
+    font-size:12px;
+    color:#6b7280;
+    margin-top:4px;
+}
+
+/* PROGRESS */
+.progress-wrap{
+    margin-top:12px;
+}
+.progress-text{
+    font-size:12px;
+    margin-bottom:6px;
+    color:#374151;
+}
+.progress-bar{
+    width:100%;
+    max-width:360px;
+    height:8px;
+    background:#e5e7eb;
+    border-radius:6px;
+    overflow:hidden;
+}
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#22c55e);
+}
+
+/* OPEN BUTTON */
+.open-btn{
+    padding:12px 22px;
+    background:#22c55e;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:14px;
+}
+.open-btn:hover{ background:#16a34a; }
+
+/* EMPTY STATE */
+.empty{
+    background:white;
+    padding:40px;
+    border-radius:14px;
+    text-align:center;
+    color:#6b7280;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>📘 My Enrolled Courses</h2>
+</header>
+
+<div class="container">
+
+<button class="back-btn" onclick="goBack()">⬅ Back to Courses</button>
+
+<div id="courseList"></div>
+
+</div>
+
+<script>
+let currentUser = localStorage.getItem("currentUser");
+let users = JSON.parse(localStorage.getItem("users")) || {};
+
+if(!currentUser || !users[currentUser]){
+    courseList.innerHTML =
+    "<div class='empty'>Please login to view your courses</div>";
+}else{
+    let courses = users[currentUser].courses;
+
+    if(courses.length === 0){
+        courseList.innerHTML =
+        "<div class='empty'>📚 You have not enrolled in any courses yet</div>";
+    }else{
+        let html = "";
+
+        courses.forEach(course=>{
+            let progress = parseInt(localStorage.getItem("progress_" + course)) || 0;
+            let lastAccess = localStorage.getItem("lastAccess_" + course) || "Not opened yet";
+
+            let status = "Not Started";
+            let statusClass = "status-notstarted";
+            if(progress > 0 && progress < 100){
+                status = "In Progress";
+                statusClass = "status-inprogress";
+            }else if(progress === 100){
+                status = "Completed";
+                statusClass = "status-completed";
+            }
+
+            html += `
+            <div class="course-card">
+                <div class="course-info">
+                    <h3>${course}</h3>
+
+                    <span class="status-badge ${statusClass}">
+                        ${status}
+                    </span>
+
+                    <div class="last-accessed">
+                        Last accessed: ${lastAccess}
+                    </div>
+
+                    <div class="progress-wrap">
+                        <div class="progress-text">${progress}% completed</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width:${progress}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="open-btn" onclick="openCourse('${course}')">
+                    Open Course
+                </button>
+            </div>`;
+        });
+
+        courseList.innerHTML = html;
+    }
+}
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function openCourse(course){
+    localStorage.setItem("currentCourse", course);
+
+    let progress = parseInt(localStorage.getItem("progress_" + course)) || 0;
+    if(progress < 100){
+        progress += 20;
+        if(progress > 100) progress = 100;
+        localStorage.setItem("progress_" + course, progress);
+    }
+
+    localStorage.setItem(
+        "lastAccess_" + course,
+        new Date().toLocaleDateString()
+    );
+
+    window.location.href = "course.html";
+}
+</script>
+
+</body>
+</html>

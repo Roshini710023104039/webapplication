@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Course Learning</title>
+
+<style>
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f4f6f8;
+    padding:40px;
+}
+
+/* Main Card */
+.box{
+    background:white;
+    padding:30px;
+    max-width:900px;
+    margin:auto;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Breadcrumb */
+.breadcrumb{
+    font-size:14px;
+    color:#6b7280;
+    margin-bottom:10px;
+}
+
+/* Course Image */
+.course-img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+/* Title */
+#title{
+    font-size:32px;
+    color:#1e90ff;
+    margin-bottom:8px;
+}
+
+/* Metadata */
+.meta{
+    display:flex;
+    gap:25px;
+    font-size:15px;
+    color:#374151;
+    margin-bottom:20px;
+}
+
+/* Progress Section */
+.progress-box{
+    background:#f1f5f9;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:25px;
+}
+
+.progress-text{
+    font-size:15px;
+    margin-bottom:8px;
+    color:#1f2937;
+}
+
+.progress-bar{
+    height:10px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:60%;
+    background:#1e90ff;
+    border-radius:20px;
+}
+
+/* Instructor */
+.instructor{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#f9fafb;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:25px;
+}
+
+.instructor img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+}
+
+.instructor h4{
+    margin:0;
+    font-size:16px;
+}
+
+.instructor p{
+    margin:3px 0 0;
+    font-size:14px;
+    color:#6b7280;
+}
+
+/* Subtitle */
+.subtitle{
+    font-size:18px;
+    color:#555;
+    margin-bottom:15px;
+}
+
+/* Content List */
+ul{
+    font-size:18px;
+    line-height:1.8;
+    padding-left:25px;
+}
+
+ul li{
+    margin-bottom:10px;
+}
+
+/* Button */
+button{
+    margin-top:25px;
+    padding:12px 22px;
+    font-size:16px;
+    background:#1e90ff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#187bcd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<div class="breadcrumb">Home / My Courses / Course Learning</div>
+
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" class="course-img">
+
+<h2 id="title"></h2>
+
+<div class="meta">
+    <div>⏱ Duration: 4 Hours</div>
+    <div>📈 Level: Beginner</div>
+    <div>🌐 Language: English</div>
+</div>
+
+<div class="progress-box">
+    <div class="progress-text">📊 Course Progress: <strong>60% Completed</strong></div>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+</div>
+
+<div class="instructor">
+    <img src="https://randomuser.me/api/portraits/men/32.jpg">
+    <div>
+        <h4>👨‍🏫 John Smith</h4>
+        <p>Senior Web Development Trainer</p>
+    </div>
+</div>
+
+<p class="subtitle">📚 Course Learning Content</p>
+
+<ul>
+    <li>✅ Introduction</li>
+    <li>✅ Core Concepts & Basics</li>
+    <li>⏳ Practical Examples</li>
+    <li>🔒 Hands-on Practice</li>
+</ul>
+
+<button onclick="back()">⬅ Back to My Courses</button>
+
+</div>
+
+<script>
+let c = localStorage.getItem("currentCourse");
+document.getElementById("title").innerText = c;
+
+function back(){
+    window.location.href = "my-courses.html";
+}
+</script>
+
+</body>
+</html>

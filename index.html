@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LearnOnline</title>
+
+<style>
+/* GLOBAL */
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f5f7fb;
+    margin:0;
+    color:#333;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(135deg,#1e90ff,#0f5ed7);
+    padding:16px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+header h2{
+    margin:0;
+    letter-spacing:0.5px;
+    color:white;
+}
+
+/* NAV BUTTONS */
+.nav-btn{
+    background:#000;
+    color:white;
+    border:none;
+    padding:8px 16px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:14px;
+    margin-left:10px;
+    transition:0.3s;
+}
+.nav-btn:hover{
+    background:white;
+    color:black;
+    transform:translateY(-2px);
+}
+
+/* TITLE */
+h2{
+    margin:30px 0 10px;
+}
+
+/* COURSE CONTAINER */
+.container{
+    padding:40px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+}
+
+/* COURSE CARD */
+.course{
+    background:white;
+    width:260px;
+    border-radius:14px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    text-align:center;
+    overflow:hidden;
+    transition:0.3s;
+    animation:floatRight 4s linear infinite;
+}
+.course:hover{
+    transform:translateY(-8px);
+    box-shadow:0 14px 30px rgba(0,0,0,0.15);
+}
+
+/* COURSE IMAGE */
+.course img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+/* COURSE TITLE */
+.course h3{
+    margin:15px 0 10px;
+    font-size:18px;
+}
+
+/* ENROLL BUTTON */
+.enroll-btn{
+    background:linear-gradient(135deg,#28a745,#1f8c38);
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:25px;
+    cursor:pointer;
+    font-size:14px;
+    margin-bottom:15px;
+    transition:0.3s;
+}
+.enroll-btn:hover{
+    transform:scale(1.05);
+}
+
+/* FLOAT ANIMATION */
+@keyframes floatRight{
+    0%{ transform:translateX(0); }
+    50%{ transform:translateX(20px); }
+    100%{ transform:translateX(0); }
+}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    z-index:1000;
+}
+
+/* MODAL BOX */
+.box{
+    background:white;
+    width:320px;
+    margin:120px auto;
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.25);
+    text-align:center;
+    position:relative;
+}
+
+/* INPUT */
+input{
+    width:90%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+input:focus{
+    border-color:#1e90ff;
+    outline:none;
+}
+
+/* MODAL BUTTON */
+.box button{
+    background:#1e90ff;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:20px;
+    cursor:pointer;
+}
+.box button:hover{
+    background:#0f5ed7;
+}
+
+/* CLOSE BUTTON */
+.closeBtn{
+    position:absolute;
+    top:12px;
+    right:15px;
+    font-size:22px;
+    cursor:pointer;
+}
+.closeBtn:hover{
+    color:red;
+}
+
+/* FOOTER */
+footer{
+    background:#0f5ed7;
+    color:white;
+    margin-top:40px;
+    text-align:center;
+}
+footer p{
+    margin:0;
+    padding:15px 0;
+}
+
+/* FOOTER SECTIONS */
+.footer-sections{
+    background:#eef3ff;
+    padding:20px 10px;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    color:#333;
+    font-size:13px;
+}
+.footer-sections div{
+    max-width:260px;
+}
+
+/* EDUCATION QUOTE */
+#eduQuote{
+    background:#eef3ff;
+    margin:20px auto 10px;
+    padding:18px 25px;
+    max-width:720px;
+    border-left:5px solid #1e90ff;
+    border-radius:10px;
+    font-size:16px;
+    font-style:italic;
+    color:#1f2937;
+}
+</style>
+</head>
+
+<body onload="updateHeader()">
+
+<header>
+<h2>📘 LearnOnline</h2>
+<nav id="navLinks"></nav>
+</header>
+
+<center><h2>Our Courses</h2></center>
+
+<div class="container">
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159" onclick="openCourse('HTML Basics')">
+<h3>HTML Basics</h3>
+<button class="enroll-btn" onclick="enroll('HTML Basics')">Enroll</button>
+</div>
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f" onclick="openCourse('CSS Mastery')">
+<h3>CSS Mastery</h3>
+<button class="enroll-btn" onclick="enroll('CSS Mastery')">Enroll</button>
+</div>
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" onclick="openCourse('JavaScript')">
+<h3>JavaScript</h3>
+<button class="enroll-btn" onclick="enroll('JavaScript')">Enroll</button>
+</div>
+
+<div class="course">
+<img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" onclick="openCourse('Python Programming')">
+<h3>Python Programming</h3>
+<button class="enroll-btn" onclick="enroll('Python Programming')">Enroll</button>
+</div>
+
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+<div class="box">
+<span class="closeBtn" onclick="closeModal('loginModal')">&times;</span>
+<h3>Login</h3>
+<input id="loginEmail" placeholder="Name"><br><br>
+<input id="loginPass" type="password" placeholder="Password"><br><br>
+<button onclick="loginUser()">Login</button>
+</div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal" id="registerModal">
+<div class="box">
+<span class="closeBtn" onclick="closeModal('registerModal')">&times;</span>
+<h3>Register</h3>
+<input id="regEmail" placeholder="Name"><br><br>
+<input id="regPass" type="password" placeholder="Password"><br><br>
+<button onclick="registerUser()">Register</button>
+</div>
+</div>
+
+<footer>
+<p>© 2026 LearnOnline</p>
+
+<div id="eduQuote"></div>
+
+<div class="footer-sections">
+<div>
+<h4>About Us</h4>
+<p>LearnOnline is a modern platform offering online courses in programming and web development.</p>
+</div>
+<div>
+<h4>Contact Us</h4>
+<p>Email: support@learnonline.com<br>Phone: +91 9876543210</p>
+</div>
+</div>
+</footer>
+
+<script>
+// STORAGE
+function getUsers(){
+    return JSON.parse(localStorage.getItem("users")) || {};
+}
+function saveUsers(u){
+    localStorage.setItem("users", JSON.stringify(u));
+}
+
+// HEADER
+function updateHeader(){
+    document.getElementById("navLinks").innerHTML=`
+        <button class="nav-btn" onclick="openLogin()">Sign In</button>
+        <button class="nav-btn" onclick="openRegister()">Sign Up</button>
+        <button class="nav-btn" onclick="goMyCourses()">My Courses</button>
+        <button class="nav-btn" onclick="logoutUser()">Logout</button>
+    `;
+}
+
+// MODALS
+function openLogin(){
+    loginEmail.value=""; loginPass.value="";
+    loginModal.style.display="block";
+}
+function openRegister(){
+    regEmail.value=""; regPass.value="";
+    registerModal.style.display="block";
+}
+function closeModal(id){
+    document.getElementById(id).style.display="none";
+}
+
+// REGISTER
+function registerUser(){
+    let e=regEmail.value.trim(), p=regPass.value.trim();
+    if(!e||!p) return alert("Fill all fields");
+    let u=getUsers();
+    if(u[e]) return alert("User exists");
+    u[e]={password:p,courses:[]};
+    saveUsers(u);
+    alert("Registered successfully");
+    closeModal('registerModal');
+    openLogin();
+}
+
+// LOGIN
+function loginUser(){
+    let e=loginEmail.value.trim(), p=loginPass.value.trim();
+    let u=getUsers();
+    if(!u[e]||u[e].password!==p) return alert("Invalid login");
+    localStorage.setItem("currentUser",e);
+    alert("Login successful");
+    closeModal('loginModal');
+}
+
+// ENROLL
+function enroll(c){
+    let u=localStorage.getItem("currentUser");
+    if(!u){ openLogin(); return; }
+    let users=getUsers();
+    if(users[u].courses.includes(c)) return alert("Already enrolled");
+    users[u].courses.push(c);
+    saveUsers(users);
+    alert("Enrolled successfully");
+}
+
+// OPEN COURSE
+function openCourse(c){
+    if(!localStorage.getItem("currentUser")){ openLogin(); return; }
+    localStorage.setItem("currentCourse",c);
+    window.location.href="course.html";
+}
+
+// MY COURSES
+function goMyCourses(){
+    window.location.href="my-courses.html";
+}
+
+// LOGOUT
+function logoutUser(){
+    let u=localStorage.getItem("currentUser");
+    if(!u) return alert("No user logged in");
+    let users=getUsers();
+    delete users[u];
+    saveUsers(users);
+    localStorage.removeItem("currentUser");
+    alert("Logged out & account deleted");
+}
+
+// RANDOM EDUCATION QUOTE
+const quotes=[
+"Education is the most powerful weapon which you can use to change the world. — Nelson Mandela",
+"Learning never exhausts the mind. — Leonardo da Vinci",
+"Education is not preparation for life; education is life itself. — John Dewey",
+"An investment in knowledge pays the best interest. — Benjamin Franklin",
+"The roots of education are bitter, but the fruit is sweet. — Aristotle",
+"The beautiful thing about learning is that no one can take it away from you. — B.B. King"
+];
+document.getElementById("eduQuote").innerText =
+"📘 " + quotes[Math.floor(Math.random()*quotes.length)];
+</script>
+
+</body>
+</html>
